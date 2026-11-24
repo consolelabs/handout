@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handout: links on your own domain</title>
+<meta name="description" content="Hand out a file, a folder, a guide, a deck, a build or a dev server at a link on your own domain. It expires when you say so, counts who opened it, and can be private.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#F4F1EA; --card:#FBF9F4; --ink:#0B1B16; --ink-2:#4A5A52; --rule:#DDD8CC;
+  --accent:#0B7A4E; --mark:#18C37E; --code-bg:#0B1B16; --code-ink:#F4F1EA; --code-dim:#8FA79B;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  color-scheme:dark;
+  --bg:#0B1B16; --card:#112620; --ink:#F4F1EA; --ink-2:#A3B5AB; --rule:#233A31;
+  --accent:#18C37E; --code-bg:#061310; --code-ink:#F4F1EA; --code-dim:#7C9488;
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-text-size-adjust:100%}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left)) max(20px,env(safe-area-inset-right))}
+a{color:var(--accent);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.3rem,6.2vw,4.1rem);font-weight:800}
+h2{font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:750}
+h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+code,pre,.mono{font-family:var(--mono)}
+code{font-size:.88em;background:color-mix(in srgb,var(--ink) 8%,transparent);padding:.1em .38em;border-radius:5px;overflow-wrap:anywhere}
+.eyebrow{font:500 .82rem var(--mono);color:var(--accent);letter-spacing:.02em}
+.lede{font-size:clamp(1.05rem,2.2vw,1.25rem);color:var(--ink-2);max-width:40rem}
+
+header.top{border-bottom:1px solid var(--rule)}
+header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.brand img{width:30px;height:30px;display:block}
+nav.links{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.95rem}
+nav.links a{color:var(--ink);text-decoration:none;padding-block:6px}
+nav.links a:hover{color:var(--accent)}
+
+section{padding-block:clamp(48px,8vw,88px);border-top:1px solid var(--rule)}
+section.hero{border-top:0;padding-block:clamp(40px,7vw,80px) clamp(40px,6vw,64px)}
+.sec-head{display:grid;gap:10px;margin-bottom:32px;max-width:44rem}
+.sec-head p{color:var(--ink-2)}
+
+.hero-grid{display:grid;gap:40px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:center}}
+.hero-copy{display:grid;gap:22px;justify-items:start}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border-radius:12px;font-weight:650;text-decoration:none;border:1px solid var(--ink);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{background:var(--mark);border-color:var(--mark);color:#0B1B16}
+
+.term{background:var(--code-bg);color:var(--code-ink);border-radius:14px;overflow:hidden;border:1px solid color-mix(in srgb,var(--ink) 14%,transparent)}
+.term .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid #ffffff18}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:#ffffff30;display:block}
+.term img{display:block;width:100%;height:auto}
+pre{margin:0;padding:16px 18px;overflow-x:auto;font-size:.88rem;line-height:1.65;color:var(--code-ink);background:var(--code-bg);border-radius:12px;white-space:pre}
+pre .c{color:var(--code-dim)}
+pre .g{color:var(--mark)}
+.demo-steps{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.demo-steps li{display:flex;gap:10px;align-items:baseline;font-size:.95rem;color:var(--ink-2)}
+.demo-steps b{font:600 .8rem var(--mono);color:var(--accent)}
+
+.visitor{margin:28px 0 0;display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.visitor{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}}
+.visitor figure{margin:0}
+.visitor img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--rule)}
+.visitor figcaption{font-size:.9rem;color:var(--ink-2);margin-top:8px}
+
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start;min-width:0}
+.card p{color:var(--ink-2);font-size:.96rem}
+.card .who{font:500 .8rem var(--mono);color:var(--accent)}
+.card pre{font-size:.82rem;padding:12px 14px}
+
+.feat{display:grid;gap:0;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card)}
+.feat div{display:grid;gap:4px;padding:16px 20px;border-top:1px solid var(--rule)}
+.feat div:first-child{border-top:0}
+.feat dt{font-weight:700}
+.feat dd{margin:0;color:var(--ink-2);font-size:.96rem}
+@media (min-width:760px){
+  .feat{grid-template-columns:1fr 1fr}
+  .feat div{border-top:1px solid var(--rule)}
+  .feat div:nth-child(-n+2){border-top:0}
+  .feat div:nth-child(odd){border-right:1px solid var(--rule)}
+}
+
+.flow{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.flow{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.node{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start;position:relative}
+.node .mono{font-size:.78rem;color:var(--accent)}
+.node p{font-size:.92rem;color:var(--ink-2)}
+.node.you{border-color:var(--mark);box-shadow:0 0 0 3px color-mix(in srgb,var(--mark) 22%,transparent)}
+.points{display:grid;gap:10px;margin:28px 0 0;padding:0;list-style:none;max-width:48rem}
+.points li{padding-left:22px;position:relative;color:var(--ink-2)}
+.points li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--mark)}
+.points b{color:var(--ink)}
+
+.os{font-size:.95rem;color:var(--ink-2);margin-top:20px}
+
+details{border-top:1px solid var(--rule)}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-weight:650;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:6px;top:16px;font:500 1.4rem/1 var(--mono);color:var(--accent)}
+details[open] summary::after{content:"\2212"}
+details .ans{padding:0 0 20px;color:var(--ink-2);max-width:46rem;display:grid;gap:10px}
+.faq{max-width:52rem}
+
+footer{border-top:1px solid var(--rule);padding-block:32px 48px;color:var(--ink-2);font-size:.93rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+footer nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/mark.svg" alt="" width="30" height="30"><span>Handout</span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#use">Use cases</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/consolelabs/handout">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">A Console Labs product</p>
+      <h1>Hand out a link that looks like yours.</h1>
+      <p class="lede">Hand out a file, a folder, a guide, a deck, a build or a dev server at a link on your own domain. The link expires when you say so, counts who opened it, can be private, and a folder gets a page of its own. Like ngrok, but the hostname is yours and stays the same.</p>
+      <div class="cta">
+        <a class="btn primary" href="#install">Install Handout</a>
+        <a class="btn" href="https://github.com/consolelabs/handout">View on GitHub</a>
+      </div>
+    </div>
+    <div>
+      <div class="term" role="img" aria-label="A real recording: handout add publishes a folder and prints its link, a visitor fetches it, hits counts the visit, rm takes it down">
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <img src="assets/use.gif" width="1098" height="572" alt="" decoding="async">
+      </div>
+      <ol class="demo-steps">
+        <li><b>1</b><span>Publish a folder with <code>handout add</code></span></li>
+        <li><b>2</b><span>A visitor opens the link</span></li>
+        <li><b>3</b><span><code>handout hits</code> shows who came</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="use">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>For people who send things to other people</h2>
+      <p>Handout is for anyone who wants the link to look like theirs. Pick what you hand out and who gets it.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="who">A client or a teammate</span>
+        <h3>A file</h3>
+        <p><code>https://s.example.com/&lt;id&gt;/report.pdf</code>, public or private to named emails, gone after 7 days.</p>
+      </article>
+      <article class="card">
+        <span class="who">A team or a class</span>
+        <h3>A folder, a guide, a deck</h3>
+        <p>One link with a generated page: videos play inline, images show as a grid, files list with type and size.</p>
+      </article>
+      <article class="card">
+        <span class="who">Testers</span>
+        <h3>A build or a prototype</h3>
+        <p>A snapshot link that survives deleting the source, refreshed under the same link.</p>
+      </article>
+      <article class="card">
+        <span class="who">A reviewer</span>
+        <h3>A running dev server</h3>
+        <p><code>handout add 3000</code> proxies <code>127.0.0.1:3000</code> while it runs. The hostname does not change at every start.</p>
+      </article>
+      <article class="card">
+        <span class="who">Everyone you work with</span>
+        <h3>Anything, from a whole team</h3>
+        <p>One hostname, one shared list, each teammate publishing from their own machine.</p>
+      </article>
+      <article class="card">
+        <span class="who">A coding agent</span>
+        <h3>Whatever it just built</h3>
+        <p><code>handout skill --install</code> teaches the agent to publish and report the link.</p>
+      </article>
+    </div>
+    <div class="visitor">
+      <p class="lede" style="font-size:1.05rem">A folder with a <code>README.md</code> opens as a page. This is what a visitor sees at the link.</p>
+      <figure>
+        <img src="assets/visitor.png" width="1200" height="760" alt="A shared folder in a browser: a rendered guide with a table, a flow diagram and a link" loading="lazy" decoding="async">
+        <figcaption>The folder's <code>README.md</code>, rendered, image and links intact.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What you get</h2>
+      <p>The CLI is open source and runs on your machine and your own Cloudflare account.</p>
+    </div>
+    <dl class="feat" style="margin:0">
+      <div><dt>Stable links</dt><dd><code>https://&lt;your-host&gt;/&lt;id&gt;/&lt;name&gt;</code>. The random id keeps links unguessable.</dd></div>
+      <div><dt>Snapshots</dt><dd><code>handout add &lt;file|dir&gt;</code> copies it, so the link survives deleting the source. <code>handout refresh</code> updates under the same link.</dd></div>
+      <div><dt>Live dev servers</dt><dd><code>handout add 3000</code> proxies <code>127.0.0.1:3000</code> while it runs.</dd></div>
+      <div><dt>Folder page</dt><dd>Folders without <code>index.html</code> get a generated page: videos inline, images in a click-to-enlarge grid, other files with type and size.</dd></div>
+      <div><dt>Markdown rendering</dt><dd>With pandoc, <code>.md</code> renders in a paper reading theme, light and dark, with KaTeX math.</dd></div>
+      <div><dt>Expiry</dt><dd>30 days by default. <code>--ttl 12h|7d|never</code>.</dd></div>
+      <div><dt>Visitor counts</dt><dd><code>handout hits &lt;id&gt;</code> shows requests and unique IPs.</dd></div>
+      <div><dt>Private links</dt><dd><code>--access email:a@x,b@y</code>, <code>domain:example.com</code> or <code>group:&lt;rule group&gt;</code> puts a Cloudflare Access login on one link. The others stay public.</dd></div>
+      <div><dt>Safe copy</dt><dd>Dotfiles (<code>.env</code>, <code>.git</code>) and symlinks are never copied.</dd></div>
+      <div><dt>No domain needed</dt><dd><code>handout setup --quick</code> serves at a random <code>trycloudflare.com</code> URL.</dd></div>
+      <div><dt>Always on</dt><dd>A login service (launchd or systemd) brings links back after a reboot.</dd></div>
+      <div><dt>Links with the machine off</dt><dd>With the R2 backend, snapshots sit in a private bucket and a Worker serves them while your laptop sleeps.</dd></div>
+      <div><dt>Members</dt><dd>One hostname for a team. <code>handout member add ana --machine</code> prints one line the teammate pastes once.</dd></div>
+      <div><dt>Profiles</dt><dd><code>handout --profile work ...</code> runs a second setup beside the first.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>How it works on your own Cloudflare account</h2>
+      <p>There is no Handout server and no account to create with us. <code>handout add</code> copies into <code>~/share/pub</code>, a local server serves it on localhost, and an outbound Cloudflare Tunnel publishes it at your hostname.</p>
+    </div>
+    <div class="flow" role="list">
+      <div class="node" role="listitem"><span class="mono">visitor</span><h3>Opens your link</h3><p><code>https://s.example.com/62cb50/guide/</code></p></div>
+      <div class="node" role="listitem"><span class="mono">your Cloudflare account</span><h3>Edge, TLS and DNS</h3><p>The hostname is yours. An outbound Tunnel carries the request in.</p></div>
+      <div class="node you" role="listitem"><span class="mono">your machine</span><h3>cloudflared and caddy</h3><p>A login service keeps them up. Caddy serves <code>127.0.0.1:8787</code>, no-store and noindex.</p></div>
+      <div class="node you" role="listitem"><span class="mono">your machine</span><h3>The files</h3><p><code>~/share/pub/62cb50/guide/</code>, only what you added.</p></div>
+    </div>
+    <ul class="points">
+      <li><b>Nothing leaves your machine until you say so.</b> Nothing outside <code>~/share/pub</code> is reachable.</li>
+      <li><b>No inbound port opens.</b> The tunnel token lives in the Keychain, or in a mode-600 file on Linux.</li>
+      <li><b>No Handout account, no telemetry.</b> The CLI talks to Cloudflare and to your machine.</li>
+    </ul>
+    <p class="os">Detail: <a href="https://github.com/consolelabs/handout/blob/main/docs/how-it-works.md">how it works</a>. The folder keeps the name <code>~/share</code> from the first releases, so installs from before the rename keep working.</p>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Install</h2>
+      <p>Mac app, CLI for macOS and Linux, an install script, and an agent skill. Windows is not supported yet.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="who">macOS</span>
+        <h3>Mac app</h3>
+        <p>Handout Bar lives in the menu bar: see what is shared, copy a link, drop a file on the icon to publish it. It also pulls the CLI.</p>
+<pre><span class="c"># once: Homebrew refuses an untrusted tap</span>
+brew trust consolelabs/tap
+brew install --cask consolelabs/tap/handout-bar</pre>
+      </article>
+      <article class="card">
+        <span class="who">macOS and Linux</span>
+        <h3>CLI</h3>
+        <p>Pulls caddy, cloudflared and jq. Optional: <code>brew install pandoc gh</code>.</p>
+<pre><span class="c"># once</span>
+brew trust consolelabs/tap
+brew install consolelabs/tap/handout
+handout setup s.example.com</pre>
+      </article>
+      <article class="card">
+        <span class="who">No Homebrew</span>
+        <h3>Install script</h3>
+        <p>Or clone the repo and run <code>./install.sh</code>: it symlinks <code>bin/handout</code>, so <code>git pull</code> updates it.</p>
+<pre>curl -fsSL https://raw.githubusercontent.com/consolelabs/handout/main/install.sh | bash</pre>
+      </article>
+      <article class="card">
+        <span class="who">Claude Code and friends</span>
+        <h3>Agent skill</h3>
+        <p>Drops a SKILL.md so a coding agent can publish with Handout and report the link back.</p>
+<pre>handout skill --install</pre>
+      </article>
+    </div>
+    <p class="os">Then <code>handout add ./team-guide</code> prints the link and copies it. Coming from <code>share</code>? Run <code>brew update</code>: it moves you to <code>consolelabs/tap/handout</code>, and <code>share</code> stays a working alias.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>FAQ and limits</h2>
+      <p>What Handout does not do, said plainly.</p>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What happens when my laptop sleeps?</summary>
+        <div class="ans"><p>On the default tunnel backend, links are live only while the machine is awake. Visitors get a Cloudflare 530 when it sleeps. For links that stay up, use the R2 backend: snapshots live in a private bucket and a Worker serves them.</p></div>
+      </details>
+      <details>
+        <summary>Do I need a Cloudflare account and a domain?</summary>
+        <div class="ans"><p>You need a Cloudflare account, because Handout runs on yours. A domain on Cloudflare gives you the stable hostname. Without one, <code>handout setup --quick</code> serves at a random <code>trycloudflare.com</code> URL.</p></div>
+      </details>
+      <details>
+        <summary>Is there a size limit?</summary>
+        <div class="ans"><p>On the R2 backend, one add holds at most 500 files, each at most 300 MiB.</p></div>
+      </details>
+      <details>
+        <summary>Can I keep a link private?</summary>
+        <div class="ans"><p>Yes, per link, with a Cloudflare Access login by email, domain or group. It needs a named setup (not <code>--quick</code>) on a Cloudflare account with Zero Trust enabled, and a Cloudflare API token with Access permissions.</p></div>
+      </details>
+      <details>
+        <summary>Can a team share one hostname?</summary>
+        <div class="ans"><p>Yes. Members publish from their own machines under your hostname. Members need the admin token, a separate minter token, and a Worker that has Workers VPC, which is a Cloudflare beta product, so members are off until you turn them on. Members are named teammates only.</p></div>
+      </details>
+      <details>
+        <summary>Which platforms does it run on?</summary>
+        <div class="ans"><p>The CLI runs on macOS and Linux. The menu bar app is macOS only. Windows is not supported yet.</p></div>
+      </details>
+      <details>
+        <summary>Does Handout see my files or track me?</summary>
+        <div class="ans"><p>No. There is no Handout server, no account with us and no telemetry in the CLI. Dotfiles and symlinks are never copied. A share from a private GitHub repo prints a warning, because the content is public to anyone with the link.</p></div>
+      </details>
+      <details>
+        <summary>What does it cost, and what is the licence?</summary>
+        <div class="ans"><p>The CLI is open source (MIT) and self-hosted. Paid layers are planned and nothing is priced yet. The product direction page lists what could be paid and what is still undecided: <a href="https://github.com/consolelabs/handout/blob/main/docs/product/DIRECTION.md">DIRECTION.md</a>.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Handout is a <a href="https://console.so">Console Labs</a> product. The CLI is open source under MIT.</p>
+    <nav aria-label="Footer">
+      <a href="https://github.com/consolelabs/handout">GitHub</a>
+      <a href="https://github.com/consolelabs/handout/blob/main/docs/setup.md">Setup guide</a>
+      <a href="https://github.com/consolelabs/handout/blob/main/docs/product/DIRECTION.md">Direction</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

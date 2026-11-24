@@ -122,6 +122,7 @@ install.sh                Dependencies and the symlink or download
 mac/                      Handout Bar: Swift package (Sources/ShareBar, Sources/ShareBarCore, Tests), build and release scripts
 tests/                    share.sh (the suite), members.sh (sourced by it), worker.mjs, e2e*.sh (live), ci/ (shards)
 demo/                     README GIF tapes and the team-guide sample
+site/                     The landing page: static, no build; `bash site/check.sh` checks it
 docs/                     Index at docs/README.md
 .github/                  CI workflows, PR template, issue forms
 CONTEXT.md                The glossary
