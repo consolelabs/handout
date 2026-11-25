@@ -39,4 +39,22 @@ Verdict: PASS
 ```
 
 ## Rendering
-Screenshots at 400 px and 1280 px, light and dark, are rendered in the mac-ui guest and saved under `docs/verification/landing-page/` when the guest queue allows (see the PR).
+The mac-ui guest had no network when this was verified, so the static page was rendered on the host with the estate's headless HTML check (a private headless browser on a localhost server, no app run).
+```
+Command: tools/interactive-concept-board/bin/verify --shots docs/verification/landing-page site/index.html
+Exit: 0
+Output:
+WARN  index  self-test no self-test  console-errors 0   moved n/a  overflow no
+0 pass, 1 warn, 0 fail
+Verdict: PASS (WARN only because a page has no board self-test; console errors 0, no horizontal overflow at 400 px)
+```
+Full-page screenshots, read and checked by eye:
+
+| File | Width | Mode |
+|---|---|---|
+| `docs/verification/landing-page/desktop-1280-light.png` | 1280 | light |
+| `docs/verification/landing-page/desktop-1280-dark.png` | 1280 | dark |
+| `docs/verification/landing-page/phone-400-light.png` | 400 | light |
+| `docs/verification/landing-page/phone-400-dark.png` | 400 | dark |
+
+The demo GIF shows its first frame in a still screenshot, so the terminal pane looks nearly empty there; it plays in a browser. The dark shots force the dark palette on a scratch copy of the page, because headless capture cannot set the color scheme.

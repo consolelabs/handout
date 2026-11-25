@@ -78,7 +78,9 @@ pre .g{color:var(--mark)}
 .card{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start;min-width:0}
 .card p{color:var(--ink-2);font-size:.96rem}
 .card .who{font:500 .8rem var(--mono);color:var(--accent)}
-.card pre{font-size:.82rem;padding:12px 14px}
+.card pre{font-size:.82rem;padding:12px 14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.card code{font-size:.82em}
+@media (min-width:720px){.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .feat{display:grid;gap:0;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--card)}
 .feat div{display:grid;gap:4px;padding:16px 20px;border-top:1px solid var(--rule)}
@@ -264,7 +266,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:6px 20px}
       <h2>Install</h2>
       <p>Mac app, CLI for macOS and Linux, an install script, and an agent skill. Windows is not supported yet.</p>
     </div>
-    <div class="cards">
+    <div class="cards two">
       <article class="card">
         <span class="who">macOS</span>
         <h3>Mac app</h3>
