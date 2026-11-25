@@ -6,6 +6,8 @@
 # Usage: mac/Tests/fixtures/popover/popover-b-shots.sh <out dir> [scene ...]
 # Scenes: drop uploading flashed dragout hotkey ql-pdf ql-folder ql-port ql-cloud publish-live (default: all)
 # publish-live drives the real drop path against the fake CLI and prints the `add` call it left in argv.log.
+# A scene name the app does not know draws the calm popover. Two knobs for other callers (promo-shots.sh):
+# SHOTS_SCENARIO=<folder of scenarios/> replaces parity-calm, SHOTS_MENU_ROW=<share id> opens that row's menu.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -51,6 +53,7 @@ shoot() { # shoot <scene> <light|dark>
   mv -f "$png" "$WORK/gone/$(basename "$png").$$" 2>/dev/null || true
   args=(-ShareBarShotsRender "$png" -ShareBarShotsScene "$scene")
   [[ $mode == dark ]] && args+=(-ShareBarShotsAppearance dark)
+  [[ -z ${SHOTS_MENU_ROW:-} ]] || args+=(-ShareBarShotsMenuRow "$SHOTS_MENU_ROW")
   local delay=0; [[ $scene == publish-live ]] && delay=0.8
   SHARE_BIN="$MAC/Tests/fixtures/bin/share" SHARE_FAKE_DIR="$RUN" SHARE_FAKE_DELAY=$delay SHARE_SHOTS_HOME="$RUN/home" SHARE_SHOTS_DROP_FILE="$RUN/home/Q4-plan.pdf" \
     "$APP/Contents/MacOS/ShareBar" "${args[@]}" >"$RUN/app-$scene-$mode.log" 2>&1 &
@@ -60,7 +63,7 @@ shoot() { # shoot <scene> <light|dark>
   kill "$APP_PID" 2>/dev/null || true
   wait "$APP_PID" 2>/dev/null || true
   APP_PID=""
-  [[ -s $png ]] || { echo "popover-b-shots.sh: no image for $scene $mode (see $RUN/app-$scene-$mode.log)" >&2; exit 1; }
+  [[ -s $png ]] || { echo "popover-b-shots.sh: no image for $scene $mode (see $RUN/app-$scene-$mode.log)" >&2; tail -n 20 "$RUN/app-$scene-$mode.log" >&2; exit 1; }
   echo "wrote $png"
   if [[ $scene == publish-live ]]; then grep -E "(^| )add " "$RUN/argv.log" | sed "s#$RUN/home#<home>#" | sed "s/^/argv.log: /"; fi
 }
@@ -68,7 +71,7 @@ shoot() { # shoot <scene> <light|dark>
 for scene in "${SCENES[@]}"; do
   case $scene in
     ql-*) prepare popover-b ;;
-    *) prepare parity-calm ;;
+    *) prepare "${SHOTS_SCENARIO:-parity-calm}" ;;
   esac
   for mode in light dark; do shoot "$scene" "$mode"; done
 done

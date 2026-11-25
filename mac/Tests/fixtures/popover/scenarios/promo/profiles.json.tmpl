@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "profiles": [
+    {
+      "name": "default",
+      "state": {
+        "schema": 1,
+        "state": "serving",
+        "ready": true,
+        "mode": "named",
+        "host": "s.example.com",
+        "hosts": "Studio-Mac",
+        "serves_here": true,
+        "service": true,
+        "access_pending": 0,
+        "role": "origin",
+        "tier": "t0",
+        "serve": {
+          "phase": "serving",
+          "reason": "ok"
+        },
+        "ops": [],
+        "token": {
+          "source": "keychain",
+          "status": "ok",
+          "expires_on": "2027-06-01"
+        },
+        "compat": {
+          "cli": "0.10.0",
+          "worker": "5 a1b2c3d4e5f6",
+          "status": "ok",
+          "min_cli": "0.10.0"
+        },
+        "shares": [
+          {
+            "id": "pr0001",
+            "name": "Q4-report.pdf",
+            "url": "https://s.example.com/pr0001/Q4-report.pdf",
+            "kind": "snapshot",
+            "own_host": null,
+            "expires": @EXP27@,
+            "storage": "machine",
+            "type": "pdf",
+            "by": "Studio-Mac",
+            "link_state": "live",
+            "added": "@D1@"
+          },
+          {
+            "id": "pr0002",
+            "name": "brand-guidelines",
+            "url": "https://s.example.com/pr0002/brand-guidelines",
+            "kind": "snapshot",
+            "own_host": null,
+            "expires": 0,
+            "storage": "machine",
+            "type": "folder",
+            "by": "Studio-Mac",
+            "link_state": "live",
+            "added": "@D3@"
+          },
+          {
+            "id": "pr0003",
+            "name": "launch-deck.html",
+            "url": "https://s.example.com/pr0003/launch-deck.html",
+            "kind": "snapshot",
+            "own_host": null,
+            "expires": @EXP27@,
+            "storage": "cloud",
+            "type": "page",
+            "by": "Studio-Mac",
+            "link_state": "live",
+            "added": "@D3@"
+          },
+          {
+            "id": "pr0004",
+            "name": "localhost:3000",
+            "url": "https://s.example.com/pr0004/",
+            "kind": "live",
+            "own_host": null,
+            "expires": 0,
+            "storage": "machine",
+            "type": null,
+            "by": "Studio-Mac",
+            "link_state": "live",
+            "added": "@D8@"
+          },
+          {
+            "id": "pr0005",
+            "name": "design-review.pdf",
+            "url": "https://s.example.com/pr0005/design-review.pdf",
+            "kind": "snapshot",
+            "own_host": null,
+            "expires": 0,
+            "storage": "machine",
+            "type": "pdf",
+            "by": "Studio-Mac",
+            "link_state": "live",
+            "added": "@D8@"
+          }
+        ]
+      }
+    }
+  ]
+}
