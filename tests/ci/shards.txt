@@ -4,8 +4,8 @@
 #
 # chain: the core, r2, groundwork and late groups. `late` pulls the other three, and r2 and groundwork read core's
 # variables (a run of either without core aborts or hangs), so they cannot be split. Its wall time is the floor of a PR run.
-# The plain section `worker` rides along.
+# The plain sections `worker` and `add: a missing path` ride along.
 # members-a, members-b: the members sections that run alone, balanced by the timing table (about 235 s and 215 s on a Mac mini).
-chain	^(members: phase 0|worker \()
+chain	^(members: phase 0|worker \(|add: a missing path)
 members-a	^members: (member rm and member purge|revoke and reconcile|leave and the member|tenant T1 to T2|dry seams|pause, resume, invite)
 members-b	^members: (adopt and min_cli|live port shares|member add|member machine|member ls and member sync|the registry|the admin lease|no token, key or code|Cloudflare object helpers|admin context|the invite seal)

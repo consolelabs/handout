@@ -11,7 +11,7 @@ Handout is for people who send things to other people and want the link to look 
 
 | You hand out | To | What you get |
 |---|---|---|
-| A file | A client or a teammate | `https://s.example.com/<id>/report.pdf`, public or private to named emails, gone after 7 days |
+| A file | A client or a teammate | `https://s.example.com/<id>/report.pdf`, public or private to named emails, gone on the date you set (30 days by default) |
 | A folder, a guide, a deck | A team or a class | One link with a generated page: videos play inline, images show as a grid, files list with type and size |
 | A build or a prototype | Testers | A snapshot link that survives deleting the source, refreshed under the same link |
 | A running dev server | A reviewer | `handout add 3000` proxies `127.0.0.1:3000` while it runs |

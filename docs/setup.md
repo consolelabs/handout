@@ -336,7 +336,7 @@ handout member add ana --machine        # or --cloud; also --port, --invite-ttl 
 # handout join s.example.com <20 characters>
 ```
 
-Send that line to the member once. The code is shown once and holds 100 bits; the invite expires after `--invite-ttl` (default 7 days, at most 30). A died `add` is named by `handout member ls` with its step and the exact rerun line.
+Send that line to the member once, with the install line: the member's Mac needs Handout first (`brew install consolelabs/tap/handout`, see the README's Install section), and the Keychain, so members run macOS. The code is shown once and holds 100 bits; the invite expires after `--invite-ttl` (default 7 days, at most 30). A died `add` is named by `handout member ls` with its step and the exact rerun line.
 
 **Join (the member).** Paste the line on the member's Mac:
 
