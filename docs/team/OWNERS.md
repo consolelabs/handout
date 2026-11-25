@@ -78,6 +78,16 @@
 | `demo/team-guide/checklist.md` | A second file in the sample folder | Han |
 | `demo/team-guide/img/flow.svg` | The image the sample folder's README shows | Han |
 
+## Site
+
+| Path | What it does | Owner |
+|---|---|---|
+| `site/index.html` | The landing page: one static file, no script, no external font | Han |
+| `site/check.sh` | Offline check of the page: links resolve, nothing third-party loads, no dash, no pinned domain | Han |
+| `site/assets/use.gif` | A copy of `demo/use.gif`, so the site folder stands alone | Han |
+| `site/assets/visitor.png` | A copy of `demo/visitor.png` | Han |
+| `site/assets/mark.svg` | A copy of `docs/brand/share-mark.svg`, the page icon and logo | Han |
+
 ## Workflows and jobs
 
 | Name | Where it runs | Trigger | Owner |
