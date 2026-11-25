@@ -45,6 +45,7 @@ A new doc goes in `team/` if it tells people how to work, and in `product/` if i
 | Doc | What it covers |
 |---|---|
 | [product/DIRECTION.md](product/DIRECTION.md) | Positioning, the free core, candidate paid layers, now, next and not now, and the open decisions for the owner |
+| [product/rehearsal/](product/rehearsal/) | Product rehearsal walks: a journey run step by step on a dry account, what was seen, and what was fixed or filed. [walk.sh](product/rehearsal/walk.sh) replays the CLI legs |
 | [setup.md](setup.md) | The admin guide: API token setup (no browser), the login service, profiles, private links, the R2 backend and teammate onboarding, a tenant's R2 and alias fold, members, moving machines, teardown, troubleshooting |
 | [how-it-works.md](how-it-works.md) | Architecture, config keys, the lifecycle of a share, the security model, the R2 data model and Worker, members, the state JSON, testing, releasing |
 | [SYSTEM-DESIGN.md](SYSTEM-DESIGN.md) | The system design of a multi-member tenant: use cases, components, store, flows, lifecycles, risks. Its UML set is [design/multi-member-uml.html](design/multi-member-uml.html) |
