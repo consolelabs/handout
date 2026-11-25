@@ -831,6 +831,11 @@ parse_target() { # parse_target <arg>: "live <port>" for a port/localhost shape,
   echo "live $p"
 }
 
+target_refusal() { # target_refusal <arg> <usage>: a port shape that does not parse keeps the usage line; anything else is a path that is not there
+  case $1 in localhost:*|127.0.0.1:*|http://localhost:*|http://127.0.0.1:*|"") die "$2" ;; esac
+  die "no such file or folder: $1; nothing was published"
+}
+
 cmd_add() {
   migrated_guard
   local add_argv=("$@")   # the journal's rerun line
@@ -856,7 +861,7 @@ cmd_add() {
     member_add_check
   fi
   if [[ $backend != r2 && ( $r2on == 1 || -n $storage ) ]]; then   # the storage of this link, settled before any write
-    local pt0; pt0="$(parse_target "$target")" || die "$usage"
+    local pt0; pt0="$(parse_target "$target")" || target_refusal "$target" "$usage"
     if [[ $storage == cloud ]]; then
       [[ -z $host_fqdn && $pt0 == snapshot ]] || die "--cloud: live links and --host stay on the origin's tunnel"
       [[ $r2on == 1 ]] || die "R2 is off for ${host_name:-this profile}; the tenant admin enables it with '$me setup ${host_name:-<hostname>} --r2 --bucket <name>'"
@@ -875,7 +880,7 @@ cmd_add() {
     [[ ${SHARE_ACCESS_DRY:-0} != 1 || $tunnel == 0 ]] || die "SHARE_ACCESS_DRY=1 is a test seam for SHARE_TUNNEL=0 only; nothing was published"
   fi
   local pt kind tport="" src name id exp=0 url opts="" secs
-  pt="$(parse_target "$target")" || die "$usage"
+  pt="$(parse_target "$target")" || target_refusal "$target" "$usage"
   if [[ $backend == r2 || $storage == cloud ]]; then   # every r2 refusal before any write; a cloud add on an origin runs the same path
     [[ $pt == snapshot && -z $host_fqdn ]] || die "live shares and --host need a tunnel profile; this profile serves from R2"
     op_interrupted_guard   # a storage_default=cloud add and an r2 profile reach here without the flag

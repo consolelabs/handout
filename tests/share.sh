@@ -228,6 +228,18 @@ bash "$SH" add "$src/.env" >/dev/null 2>&1
 check "a bare dotfile is refused" 1 "$?"
 fi
 
+if section "add: a missing path is named"; then
+# A path that is not there once met the usage line, so a person could not tell the path from the flags.
+out=$(bash "$SH" add "$WORK/wt/no-such-file.pdf" 2>&1 >/dev/null); rc=$?
+check "add of a path that is not there says so, once, and not the usage line" "1|1|0" "$rc|$(grep -c '^handout: no such file or folder: .*no-such-file.pdf; nothing was published$' <<<"$out")|$(grep -c 'usage:' <<<"$out")"
+out=$(bash "$SH" add --cloud "$WORK/wt/no-such-file.pdf" 2>&1 >/dev/null); rc=$?
+check "the same under --cloud, which settles the storage first" "1|1|0" "$rc|$(grep -c '^handout: no such file or folder: ' <<<"$out")|$(grep -c 'usage:' <<<"$out")"
+out=$(bash "$SH" add localhost:abc 2>&1 >/dev/null); rc=$?
+check "a malformed port keeps the usage line" "1|1" "$rc|$(grep -c '^handout: usage: handout add' <<<"$out")"
+out=$(bash "$SH" add 2>&1 >/dev/null); rc=$?
+check "add with no target keeps the usage line" "1|1" "$rc|$(grep -c '^handout: usage: handout add' <<<"$out")"
+fi
+
 if section "compat: a five-column row still lists and removes"; then
 printf 'aa11bb\toldsnap\t%s\t2026-01-01\t0\n' "$WORK" >>"$SHARE_ROOT/index.tsv"
 check "five-column row lists" "1" "$(bash "$SH" ls | grep -c aa11bb)"
